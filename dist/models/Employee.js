@@ -8,7 +8,6 @@ const EmployeeHomeAddressSchema = new mongoose_1.Schema({
     city: { type: String, required: true },
 });
 const EmployeeSchema = new mongoose_1.Schema({
-    //_id: { type: String, required: true, unique: true  },
     dateOfBirth: { type: String, required: true },
     dateOfEmployment: { type: String, required: true },
     deletedAt: { type: String },

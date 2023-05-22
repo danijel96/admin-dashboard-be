@@ -7,7 +7,6 @@ export interface IEmployee {
     isDeleted?: boolean;
     name: string;
     phoneNumber: string;
-    //_id: string;
 }
 
 export interface EmployeeHomeAddress {
@@ -15,5 +14,4 @@ export interface EmployeeHomeAddress {
     addressLine1: string;
     addressLine2?: string;
     city: string;
-    //_id?: string;
 }

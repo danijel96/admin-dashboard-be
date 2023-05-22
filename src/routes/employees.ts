@@ -165,7 +165,7 @@ router.delete(
     }
 );
 
-// GET EMPLOYEE BY ID - NOT DONE
+// GET EMPLOYEE BY ID - DONE
 router.get(
     "/id/:id",
     async (
@@ -189,12 +189,7 @@ router.get(
 );
 
 // GET ALL EMPLOYEES - DONE
-router.get<
-    Record<string, never>, // empty Object {} => Params part
-    APIResponse<IEmployee[]> | APIError, // => ResponseBody part
-    Record<string, never>, // => RequestBody part
-    Pagination // => RequestQuery part (for pagination & filters/sorters)
->(
+router.get(
     "/",
     async (
         req: Request<
@@ -211,11 +206,7 @@ router.get<
             // Calculate skip and limit based on page and limit
             const skip = (page - 1) * limit;
 
-            // Query the database with filters, sorters and pagination
-            //const employees = await Employee.find(filters).skip(skip).limit(+limit);
-
-            //const count = await Employee.countDocuments(filters);
-
+            // Query the database with filters and pagination
             const [employees, count] = await Promise.all([
                 Employee.find(filters).skip(skip).limit(+limit),
                 Employee.countDocuments(filters),
@@ -239,12 +230,7 @@ router.get<
 );
 
 // GET ALL DELETED EMPLOYEES - DONE
-router.get<
-    Record<string, never>,
-    APIResponse<IEmployee[]> | APIError,
-    Record<string, never>,
-    Pagination
->(
+router.get(
     "/deleted",
     async (
         req: Request<

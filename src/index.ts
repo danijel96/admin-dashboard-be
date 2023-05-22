@@ -1,13 +1,14 @@
-import express, { json } from "express";
 import colors from "colors";
-const app = express();
-import { config } from "dotenv";
-config();
 import cors from "cors";
+import { config } from "dotenv";
+import express, { json } from "express";
 
+// internal imports
+import connectDB from "./config/db";
 import employeeRoute from "./routes/employees";
 
-import connectDB from "./config/db";
+const app = express();
+config();
 
 colors.enable();
 connectDB();

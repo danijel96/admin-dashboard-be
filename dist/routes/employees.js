@@ -116,7 +116,7 @@ router.delete("/permanent-delete/:id", async (req, res) => {
         });
     }
 });
-// GET EMPLOYEE BY ID - NOT DONE
+// GET EMPLOYEE BY ID - DONE
 router.get("/id/:id", async (req, res) => {
     try {
         const employeeId = req.params.id;
@@ -137,9 +137,7 @@ router.get("/", async (req, res) => {
         const filters = { isDeleted: false };
         // Calculate skip and limit based on page and limit
         const skip = (page - 1) * limit;
-        // Query the database with filters, sorters and pagination
-        //const employees = await Employee.find(filters).skip(skip).limit(+limit);
-        //const count = await Employee.countDocuments(filters);
+        // Query the database with filters and pagination
         const [employees, count] = await Promise.all([
             Employee_1.default.find(filters).skip(skip).limit(+limit),
             Employee_1.default.countDocuments(filters),

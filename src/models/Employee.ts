@@ -9,7 +9,6 @@ const EmployeeHomeAddressSchema = new Schema({
 
 const EmployeeSchema = new Schema(
     {
-        //_id: { type: String, required: true, unique: true  },
         dateOfBirth: { type: String, required: true },
         dateOfEmployment: { type: String, required: true },
         deletedAt: { type: String },

@@ -26,14 +26,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importStar(require("express"));
 const colors_1 = __importDefault(require("colors"));
-const app = (0, express_1.default)();
-const dotenv_1 = require("dotenv");
-(0, dotenv_1.config)();
 const cors_1 = __importDefault(require("cors"));
-const employees_1 = __importDefault(require("./routes/employees"));
+const dotenv_1 = require("dotenv");
+const express_1 = __importStar(require("express"));
+// internal imports
 const db_1 = __importDefault(require("./config/db"));
+const employees_1 = __importDefault(require("./routes/employees"));
+const app = (0, express_1.default)();
+(0, dotenv_1.config)();
 colors_1.default.enable();
 (0, db_1.default)();
 app.use((0, cors_1.default)());
