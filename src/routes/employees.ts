@@ -1,9 +1,13 @@
 //const createProduct = require("../controlers/employee");
 import express, { Request, Response } from "express";
+import { FilterQuery } from "mongoose";
 
 // internal imports
 import { SUCCESS_MESSAGE } from "../common/constants/global.constants";
-import { IEmployee } from "../common/contracts/Employee";
+import {
+    EmployeeParamsWithPagination,
+    IEmployee,
+} from "../common/contracts/Employee";
 import { Pagination } from "../common/contracts/Pagination";
 import {
     APIError,
@@ -196,13 +200,24 @@ router.get(
             Record<string, never>,
             APIResponse<IEmployee[]>,
             Record<string, never>,
-            Pagination
+            EmployeeParamsWithPagination
         >,
         res: Response<APIResponse<IEmployee[]> | APIError>
     ) => {
         try {
-            const { page = 1, limit = 10 } = req.query;
-            const filters = { isDeleted: false };
+            const { page = 1, limit = 10, search } = req.query;
+            const filters: FilterQuery<IEmployee> = { isDeleted: false };
+
+            if (search) {
+                // Apply search filters using $regex and $options
+                filters.$or = [
+                    { name: { $regex: search, $options: "i" } },
+                    { email: { $regex: search, $options: "i" } },
+                    { "homeAddress.city": { $regex: search, $options: "i" } },
+                    { phoneNumber: { $regex: search, $options: "i" } },
+                ];
+            }
+
             // Calculate skip and limit based on page and limit
             const skip = (page - 1) * limit;
 

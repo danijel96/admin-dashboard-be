@@ -133,8 +133,17 @@ router.get("/id/:id", async (req, res) => {
 // GET ALL EMPLOYEES - DONE
 router.get("/", async (req, res) => {
     try {
-        const { page = 1, limit = 10 } = req.query;
+        const { page = 1, limit = 10, search } = req.query;
         const filters = { isDeleted: false };
+        if (search) {
+            // Apply search filters using $regex and $options
+            filters.$or = [
+                { name: { $regex: search, $options: "i" } },
+                { email: { $regex: search, $options: "i" } },
+                { "homeAddress.city": { $regex: search, $options: "i" } },
+                { phoneNumber: { $regex: search, $options: "i" } },
+            ];
+        }
         // Calculate skip and limit based on page and limit
         const skip = (page - 1) * limit;
         // Query the database with filters and pagination

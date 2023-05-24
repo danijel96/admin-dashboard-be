@@ -4,7 +4,7 @@ export interface Pagination {
 }
 
 export interface PaginationResponse {
-    currentPage: number
-    totalPages: number
-    totalResults: number
+    currentPage: number;
+    totalPages: number;
+    totalResults: number;
 }

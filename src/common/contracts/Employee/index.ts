@@ -1,3 +1,5 @@
+import { Pagination } from "../Pagination";
+
 export interface IEmployee {
     dateOfBirth: string;
     dateOfEmployment: string;
@@ -14,4 +16,8 @@ export interface EmployeeHomeAddress {
     addressLine1: string;
     addressLine2?: string;
     city: string;
+}
+
+export interface EmployeeParamsWithPagination extends Pagination {
+    search: string;
 }
