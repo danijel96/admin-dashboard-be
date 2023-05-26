@@ -15,46 +15,50 @@ import {
     BaseParams,
 } from "../common/contracts/global.contracts";
 import Employee from "../models/Employee";
+import * as EmployeeController from "../controllers/employees.controller";
 
 const router = express.Router();
 
 //CREATE EMPLOYEE - DONE
-router.post(
-    "/",
-    async (
-        req: Request<Record<string, never>, APIResponse<IEmployee>, IEmployee>,
-        res: Response<APIResponse<IEmployee> | APIError>
-    ) => {
-        try {
-            const employeeData: IEmployee = req.body;
-            // Check if the email already exists
-            const existingEmployee = await Employee.findOne({
-                email: employeeData.email,
-            });
-            if (existingEmployee) {
-                return res.status(409).json({
-                    message: "Email already exists",
-                });
-            }
+router.post("/", EmployeeController.create);
 
-            const employee = new Employee({
-                ...employeeData,
-                isDeleted: false,
-                deletedAt: null,
-            });
-            const createdEmployee = await employee.save();
+////CREATE EMPLOYEE - DONE
+//router.post(
+//    "/",
+//    async (
+//        req: Request<Record<string, never>, APIResponse<IEmployee>, IEmployee>,
+//        res: Response<APIResponse<IEmployee> | APIError>
+//    ) => {
+//        try {
+//            const employeeData: IEmployee = req.body;
+//            // Check if the email already exists
+//            const existingEmployee = await Employee.findOne({
+//                email: employeeData.email,
+//            });
+//            if (existingEmployee) {
+//                return res.status(409).json({
+//                    message: "Email already exists",
+//                });
+//            }
 
-            res.status(201).json({
-                data: createdEmployee,
-                message: "Successfully created Employee!",
-            });
-        } catch (error) {
-            res.status(500).json({
-                message: "Internal server error",
-            });
-        }
-    }
-);
+//            const employee = new Employee({
+//                ...employeeData,
+//                isDeleted: false,
+//                deletedAt: null,
+//            });
+//            const createdEmployee = await employee.save();
+
+//            res.status(201).json({
+//                data: createdEmployee,
+//                message: "Successfully created Employee!",
+//            });
+//        } catch (error) {
+//            res.status(500).json({
+//                message: "Internal server error",
+//            });
+//        }
+//    }
+//);
 
 // UPDATE EMPLOYEE - DONE
 router.put(
